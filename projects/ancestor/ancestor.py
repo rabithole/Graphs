@@ -10,18 +10,16 @@ def earliest_ancestor(ancestors, starting_node):
 	queue = deque()
 	queue.append(starting_node)
 	relationship = {}
-	temp = {}
+	temp = {} 
 	for ancestor in ancestors:
-		if ancestor[0] in relationship:
-			# print('In relationship')
-			relationship[ancestor[0]] = {temp, ancestor[1]}
-			temp = ancestor[1]
-			# print('Relationship', relationship)
-		else:
-			# print('Not in relationship')
-			temp = ancestor[1]
-			relationship[ancestor[0]] = {ancestor[1]}
-		
+		if ancestor[1] in relationship: 
+			temp = ancestor[]
+			relationship[ancestor[1]] = {temp, ancestor[0]} 
+			temp = ancestor[0] 
+			print('Child', ancestor[1], 'Temp', temp, 'Parent', ancestor[0])
+		else: 
+			relationship[ancestor[1]] = {ancestor[0]} 
+			# temp = ancestor[0] 
 	print(relationship)
 
 
@@ -35,3 +33,34 @@ print('')
 # Earliest known ancestor will have the longest path
 # If more than one ancestor, return the one with the lowest numberic ID/value.
 # Return -1 if there no parents exist. 
+
+def createGraph(edges):
+    # This convenience method simply allows us to initialize default values when assigning
+    # a key to a dictionary. In this case, the default value for a new key is an empty set
+    graph = defaultdict(set)
+    for edge in edges:
+        ancestor, child = edge[0], edge[1]
+        graph[child].add(ancestor)
+    print(graph)
+    return graph
+
+createGraph(ancestors)
+
+
+
+
+def earliest_ancestor1(ancestors, starting_node):
+    queue = Queue()
+    current_node = starting_node
+    relationships = {}
+
+    for ancestor in ancestors:
+        parent = ancestor[0]	
+        child = ancestor[1]
+
+        if child not in relationships:
+            relationships[child] = set()
+        relationships[child].add(parent)
+    print(relationships)
+
+# earliest_ancestor1(ancestors, 6)
